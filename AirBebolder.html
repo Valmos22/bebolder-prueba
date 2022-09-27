@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - AirBebolder</title>
+    <link rel="stylesheet" href="AirBebolder.css">
+</head>
+<body class="body">
+
+    <header class="header">
+        <nav class="navbar">
+            <section class="logo">
+                <article>
+                    <p style="font-weight: bold;">AirBebold</p>
+                    <p style="font-size: 10px;">Viaja Seguro</p>
+                </article>
+                <div class="toggle" id="toggle"></div>
+            </section>
+            <ul class="item-nav" id="item-nav">
+                <li class="item">
+                    <input type="button" value="Iniciar Sesion">
+                </li>
+            </ul>
+        </nav>
+
+        <div class="banner">
+            <h1>¡Compra tu paquete con la nueva experiencia online y ahorra en tu viaje!</h1>
+            <div class="p">
+                <P>Acumula Millas LATAM Pass y Puntos Calificables</P>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="vuelos" id="vuelos">
+            <article>
+                <h5 class="h5">Vuelos</h5>
+                <hr>
+            </article>
+
+            <article class="buscar-vuelos">
+                <div class="cheks-vuelo">
+                    <div class="radios">
+                        <input type="radio" name="check" value="RT" id="RT" checked>
+                        <label for="">Ida y vuelta</label>
+                    </div>
+
+                    <div class="radios">
+                        <input type="radio" name="check" value="OW" id="OW">
+                        <label for="">Solo Ida</label>
+                    </div>
+
+                    <div class="radios">
+                        <button type="button" name="" value="" id="boton-modal-pasajeros">1 pasajero</button>
+
+                        <div class="modal-pasajeros no-visible" id="modal-pasajeros">
+                            <div class="pasajeros">
+                                <p id="cantidad-adultos">1</p>
+                                <div>
+                                    <p>Adultos</p>
+                                    <span>(+12 años)</span>
+                                </div>
+                                <div class="botones-pasajero">
+                                    <button id="menos-adulto">-</button>
+                                    <button id="mas-adulto">+</button>
+                                </div>
+                            </div>
+
+                            <div class="pasajeros">
+                                <p id="cantidad-ninos">0</p>
+                                <div>
+                                    <p>Niños</p>
+                                    <span>(2-12 años)</span>
+                                </div>
+                                <div class="botones-pasajero">
+                                    <button id="menos-nino">-</button>
+                                    <button id="mas-nino">+</button>
+                                </div>
+                            </div>
+                            <div class="pasajeros">
+                                <p id="cantidad-infante">0</p>
+                                <div>
+                                    <p>Infantes</p>
+                                    <span>(0-2 años)</span>
+                                </div>
+                                <div class="botones-pasajero">
+                                    <button id="menos-infante">-</button>
+                                    <button id="mas-infante">+</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <form action="" class="form-vuelo">
+                    <div class="div-vuelo">
+                        <select class="vuelo-campo" name="" id="ciudad-origen">
+                            <option value="Ciudad Origen" selected disabled>Ciudad Origen</option>
+                        </select>
+
+                        <select class="vuelo-campo" name="" id="ciudad-destino">
+                            <option value="Ciudad Destino" selected disabled>Ciudad Destino</option>
+                        </select>
+                   
+                        <input class="vuelo-campo" type="text" name="" value="" id="fecha-ida" placeholder="Fecha ida" onfocus="(this.type='date')" onblur="(this.type='text')">
+                        <input class="vuelo-campo" type="text" name="" value="" id="fecha-regreso" placeholder="Fecha regreso" onfocus="(this.type='date')" onblur="(this.type='text')">
+                        <input class="vuelo-campo" type="button" value="Buscar" id="buscar-vuelos">
+                    </div>
+                </form>
+            </article>
+
+
+            <article class="resultado-vuelos" id="re-vu-id">
+                <div id="vuelos-ida">
+                    <br><br>
+                    <h2>Elige un vuelo de IDA</h2>
+                    <br>
+
+                    <div class="detalles-vuelo" id="detalles-vuelo-ida">
+                        
+                    </div>
+                </div>
+            </article>
+
+            <article class="resultado-vuelos" id="re-vu-re">
+                <div id="vuelos-regreso">
+                    <br><br>
+                    <h2>Elige un vuelo de REGRESO</h2>
+                    <br>
+
+                    <div class="detalles-vuelo" id="detalles-vuelo-regreso">
+                        
+                    </div>
+                </div>
+            </article>
+
+            <div class="boton" id="boton">
+                <button type="button" class="continuar" id="continuar">Continuar</button>
+            </div>
+        </section>
+
+        <section class="datos-pasajeros" id="datos-pasajeros">
+
+            <h1 class="h1-pa">Datos personales de pasajeros</h1>
+
+            <div class="todo-datos">
+                <article class="datos" id="pasajero-adulto"></article>
+                <article class="datos" id="pasajero-nino"></article>
+                <article class="datos" id="pasajero-infante"></article>
+            </div>
+
+            <div class="boton-guardar" id="boton-guardar">
+                <button type="button" class="continuar" id="guardar">Guardar</button>
+            </div>
+        </section>
+
+
+        <section class="forma-pagos" id="forma-pagos">
+            <article>
+                <h5 class="h5">Metodo de pago</h5>
+                <hr>
+            </article>
+            <article class="metodos-pagos">
+                <div class="metodo-pago">
+                    <div>
+                        <input type="radio" name="" value="" id="mostrar-form-pago">
+                        <label for="mostrar-form-pago">Tarjeta de credito</label>
+                    </div>
+
+                    <div>
+                        <img src="./pngwing.com.png" alt="Metodos de pago" id="pago-img">
+                    </div>
+                </div>
+
+                <div class="datos-pago">
+                    <div>
+                        <label for="pago-nombre">Nombre completo </label>
+                        <input type="text" id="pago-nombre" value="" placeholder="">
+                    </div>
+
+                    <div>
+                        <label for="pago-documento">Documento </label>
+                        <input type="text" id="pago-documento" value="" placeholder="">
+                    </div>
+
+                    <div>
+                        <label for="pago-documento">Correo </label>
+                        <input type="text" id="pago-email" value="" placeholder="">
+                    </div>
+                    <div>
+                        <label for="pago-documento">N° Tarjeta </label>
+                        <input type="text" id="pago-tarjeta" value="" placeholder="">
+                    </div>
+                </div>
+
+                <div class="boton-guardar">
+                    <button type="button" class="continuar" id="finalizar">Finalizar</button>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <h5>Hugo Valmos</h5>
+    </footer>
+
+    <script src="AirBebolder.js" type="module"></script>
+</body>
+</html>
