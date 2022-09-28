@@ -14,7 +14,10 @@ const ciudadDestino = document.getElementById('ciudad-destino');
 const abrirModal = document.getElementById('boton-modal-pasajeros');
 const modalPasajeros = document.querySelector('.modal-pasajeros');
 
+const formaPagos = document.getElementById('forma-pagos')
+
 const guardarDatosPasajeros = document.getElementById("guardar")
+const guardarDatosPago = document.getElementById('finalizar')
 const buscarVuelos = document.getElementById('buscar-vuelos');
 const detallesVuelosIda = document.getElementById('detalles-vuelo-ida');
 const detallesVuelosRegreso = document.getElementById('detalles-vuelo-regreso');
@@ -221,6 +224,13 @@ const mostrarVuelosDeRegreso = (origen, destino, fecha) => {
 };
 buscarVuelos.addEventListener('click', () => {
 
+  localStorage.removeItem("DatosAdultos");
+  localStorage.removeItem("DatosNinos");
+  localStorage.removeItem("DatosInfantes");
+  localStorage.removeItem("DatosPago");
+  localStorage.removeItem("VueloIda");
+
+
   // mostrarVuelosDeIda(ciudadOrigen.value, ciudadDestino.value, fechaIda.value)
   // mostrarVuelosDeRegreso(ciudadOrigen.value, ciudadDestino.value, fechaRegreso.value)
   if (RT == false) {
@@ -259,6 +269,17 @@ const verDetalles = (e) => {
       localStorage.removeItem(existeLocalStorage);
       localStorage.setItem("VueloIda", JSON.stringify(esteVuelo));
     }
+    
+    let idVu = JSON.parse(localStorage.getItem("VueloIda"));
+    idVu.map(item => {
+      if(vuel.getAttribute('id') === item.id){
+        console.log(item.id)
+        document.getElementById(`${item.id}`).style.backgroundColor = 'red'
+      }else{
+        console.log('es-----')
+        document.getElementById(`${item.id}`).style.background = 'none'
+      }
+    })
     
 
   }
@@ -378,6 +399,32 @@ guardarDatosPasajeros.addEventListener("click", ()=>{
     dataInfante.push(iterator.value)
   }
   localStorage.setItem("DatosInfantes", JSON.stringify(dataInfante));
+
+  formaPagos.style.display = 'flex'
+  document.getElementById("datos-pasajeros").style.display = "none"
+})
+
+guardarDatosPago.addEventListener('click', ()=>{
+
+  const nombrePago = document.getElementById('pago-nombre')
+  const documentoPago = document.getElementById('pago-documento')
+  const emailPago = document.getElementById('pago-email')
+  const tarjetaPago = document.getElementById('pago-tarjeta')
+
+  const datosPago = {
+    nombre: '',
+    documento: '',
+    email: '',
+    numTarjeta: ''
+  }
+
+  datosPago.nombre = nombrePago.value;
+  datosPago.documento = documentoPago.value;
+  datosPago.email = emailPago.value;
+  datosPago.numTarjeta = tarjetaPago.value;
+
+  localStorage.setItem("DatosPago", JSON.stringify(datosPago));
+
 })
 
 
