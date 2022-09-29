@@ -1,26 +1,26 @@
-import { ciudades, vuelos } from './datos.js';
+import { ciudades, vuelos } from "./datos.js";
 
 const todoVuelos = document.getElementById("vuelos");
 
-const radioButtonVueloRt = document.getElementById('RT');
-const radioButtonVueloOw = document.getElementById('OW');
+const radioButtonVueloRt = document.getElementById("RT");
+const radioButtonVueloOw = document.getElementById("OW");
 
-const fechaIda = document.getElementById('fecha-ida');
-const fechaRegreso = document.getElementById('fecha-regreso');
+const fechaIda = document.getElementById("fecha-ida");
+const fechaRegreso = document.getElementById("fecha-regreso");
 
-const ciudadOrigen = document.getElementById('ciudad-origen');
-const ciudadDestino = document.getElementById('ciudad-destino');
+const ciudadOrigen = document.getElementById("ciudad-origen");
+const ciudadDestino = document.getElementById("ciudad-destino");
 
-const abrirModal = document.getElementById('boton-modal-pasajeros');
-const modalPasajeros = document.querySelector('.modal-pasajeros');
+const abrirModal = document.getElementById("boton-modal-pasajeros");
+const modalPasajeros = document.querySelector(".modal-pasajeros");
 
-const formaPagos = document.getElementById('forma-pagos')
+const formaPagos = document.getElementById("forma-pagos");
 
-const guardarDatosPasajeros = document.getElementById("guardar")
-const guardarDatosPago = document.getElementById('finalizar')
-const buscarVuelos = document.getElementById('buscar-vuelos');
-const detallesVuelosIda = document.getElementById('detalles-vuelo-ida');
-const detallesVuelosRegreso = document.getElementById('detalles-vuelo-regreso');
+const guardarDatosPasajeros = document.getElementById("guardar");
+const guardarDatosPago = document.getElementById("finalizar");
+const buscarVuelos = document.getElementById("buscar-vuelos");
+const detallesVuelosIda = document.getElementById("detalles-vuelo-ida");
+const detallesVuelosRegreso = document.getElementById("detalles-vuelo-regreso");
 
 let ciudadesDestino = [];
 let candidadAdultos = 1,
@@ -35,43 +35,44 @@ const datosPasajero = {
   documento: "",
   correo: "",
   edad: "",
-  telefono: ""
-}
+  telefono: "",
+};
 let RT = true;
 
-
 radioButtonVueloRt.addEventListener("click", () => {
-  fechaRegreso.style.display = 'block';
+  fechaRegreso.style.display = "block";
   RT = true;
 });
 radioButtonVueloOw.addEventListener("click", () => {
-  fechaRegreso.style.display = 'none';
+  fechaRegreso.style.display = "none";
   RT = false;
 });
-abrirModal.addEventListener('click', () => {
-  let clases = modalPasajeros.getAttribute('class');
-  clases.includes('es-visible') ? modalPasajeros.classList.remove('es-visible') : modalPasajeros.className += ' es-visible';
-
+abrirModal.addEventListener("click", () => {
+  let clases = modalPasajeros.getAttribute("class");
+  clases.includes("es-visible")
+    ? modalPasajeros.classList.remove("es-visible")
+    : (modalPasajeros.className += " es-visible");
 });
 
 const listarCiudades = () => {
-  ciudades.map(ciudad => {
+  ciudades.map((ciudad) => {
     ciudadOrigen.innerHTML += `
     <option value="${ciudad.nombre}" id="${ciudad.id}">${ciudad.nombre}</option>
     `;
   });
 
-  ciudadOrigen.addEventListener('click', () => {
-
+  ciudadOrigen.addEventListener("click", () => {
     const existeLocalStorage = localStorage.getItem("Ciudades");
     if (existeLocalStorage) {
       localStorage.removeItem(existeLocalStorage);
     }
 
-    const seleccion = ciudades.filter(ciudadSeleccionada => ciudadSeleccionada.nombre === ciudadOrigen.value);
+    const seleccion = ciudades.filter(
+      (ciudadSeleccionada) => ciudadSeleccionada.nombre === ciudadOrigen.value
+    );
 
-    seleccion.map(select => {
-      select.destinos.map(todo => {
+    seleccion.map((select) => {
+      select.destinos.map((todo) => {
         ciudadDestino.innerHTML += `
           <option value="${todo.nombre}" id="${todo.nombre}">${todo.nombre}</option>
         `;
@@ -82,21 +83,19 @@ const listarCiudades = () => {
 listarCiudades();
 
 function sumarRestarPasajeros() {
-
   //
-  const sumaAdulto = document.getElementById('mas-adulto');
-  const restaAdulto = document.getElementById('menos-adulto');
+  const sumaAdulto = document.getElementById("mas-adulto");
+  const restaAdulto = document.getElementById("menos-adulto");
   sumaAdulto.addEventListener("click", () => {
-    const cantidad = document.getElementById('cantidad-adultos');
+    const cantidad = document.getElementById("cantidad-adultos");
     candidadAdultos += 1;
     cantidad.innerHTML = candidadAdultos;
 
-    
     totalPasajeros = candidadAdultos + candidadNinos + candidadInfantes;
-    abrirModal.innerHTML = `${totalPasajeros} pasajeros`
+    abrirModal.innerHTML = `${totalPasajeros} pasajeros`;
   });
   restaAdulto.addEventListener("click", () => {
-    const restaAdulto = document.getElementById('cantidad-adultos');
+    const restaAdulto = document.getElementById("cantidad-adultos");
     candidadAdultos -= 1;
     restaAdulto.innerHTML = candidadAdultos;
 
@@ -105,24 +104,22 @@ function sumarRestarPasajeros() {
     }
 
     totalPasajeros = candidadAdultos + candidadNinos + candidadInfantes;
-    abrirModal.innerHTML = `${totalPasajeros} pasajeros`
-
+    abrirModal.innerHTML = `${totalPasajeros} pasajeros`;
   });
 
   //
-  const sumaNinos = document.getElementById('mas-nino');
-  const restaNinos = document.getElementById('menos-nino');
+  const sumaNinos = document.getElementById("mas-nino");
+  const restaNinos = document.getElementById("menos-nino");
   sumaNinos.addEventListener("click", () => {
-    const cantidad = document.getElementById('cantidad-ninos');
+    const cantidad = document.getElementById("cantidad-ninos");
     candidadNinos += 1;
     cantidad.innerHTML = candidadNinos;
 
     totalPasajeros = candidadAdultos + candidadNinos + candidadInfantes;
-    abrirModal.innerHTML = `${totalPasajeros} pasajeros`
-
+    abrirModal.innerHTML = `${totalPasajeros} pasajeros`;
   });
   restaNinos.addEventListener("click", () => {
-    const cantidad = document.getElementById('cantidad-ninos');
+    const cantidad = document.getElementById("cantidad-ninos");
     candidadNinos -= 1;
     cantidad.innerHTML = candidadNinos;
 
@@ -131,22 +128,22 @@ function sumarRestarPasajeros() {
     }
 
     totalPasajeros = candidadAdultos + candidadNinos + candidadInfantes;
-    abrirModal.innerHTML = `${totalPasajeros} pasajeros`
+    abrirModal.innerHTML = `${totalPasajeros} pasajeros`;
   });
 
   //
-  const sumaInfantes = document.getElementById('mas-infante');
-  const restaInfantes = document.getElementById('menos-infante');
+  const sumaInfantes = document.getElementById("mas-infante");
+  const restaInfantes = document.getElementById("menos-infante");
   sumaInfantes.addEventListener("click", () => {
-    const cantidad = document.getElementById('cantidad-infante');
+    const cantidad = document.getElementById("cantidad-infante");
     candidadInfantes += 1;
     cantidad.innerHTML = candidadInfantes;
 
     totalPasajeros = candidadAdultos + candidadNinos + candidadInfantes;
-    abrirModal.innerHTML = `${totalPasajeros} pasajeros`
+    abrirModal.innerHTML = `${totalPasajeros} pasajeros`;
   });
   restaInfantes.addEventListener("click", () => {
-    const cantidad = document.getElementById('cantidad-infante');
+    const cantidad = document.getElementById("cantidad-infante");
     candidadInfantes -= 1;
     cantidad.innerHTML = candidadInfantes;
 
@@ -155,17 +152,20 @@ function sumarRestarPasajeros() {
     }
 
     totalPasajeros = candidadAdultos + candidadNinos + candidadInfantes;
-    abrirModal.innerHTML = `${totalPasajeros} pasajeros`
+    abrirModal.innerHTML = `${totalPasajeros} pasajeros`;
   });
-
 }
 sumarRestarPasajeros();
 
-
 const mostrarVuelosDeIda = (origen, destino, fecha) => {
-  let vuelosCiudad = vuelos.filter(vuelo => vuelo.origen === origen && vuelo.destino === destino && vuelo.fecha === fecha);
+  let vuelosCiudad = vuelos.filter(
+    (vuelo) =>
+      vuelo.origen === origen &&
+      vuelo.destino === destino &&
+      vuelo.fecha === fecha
+  );
 
-  vuelosCiudad.map(deta => {
+  vuelosCiudad.map((deta) => {
     detallesVuelosIda.innerHTML += `
 
       <div class="vuelo-disponible" id="${deta.id}">
@@ -190,13 +190,17 @@ const mostrarVuelosDeIda = (origen, destino, fecha) => {
       </div>
     `;
   });
-
 };
 
 const mostrarVuelosDeRegreso = (origen, destino, fecha) => {
-  let vuelosCiudad = vuelos.filter(vuelo => vuelo.origen === destino && vuelo.destino === origen && vuelo.fecha === fecha);
+  let vuelosCiudad = vuelos.filter(
+    (vuelo) =>
+      vuelo.origen === destino &&
+      vuelo.destino === origen &&
+      vuelo.fecha === fecha
+  );
 
-  vuelosCiudad.map(deta => {
+  vuelosCiudad.map((deta) => {
     detallesVuelosRegreso.innerHTML += `
 
       <div class="vuelo-disponible" id="${deta.id}">
@@ -222,26 +226,28 @@ const mostrarVuelosDeRegreso = (origen, destino, fecha) => {
     `;
   });
 };
-buscarVuelos.addEventListener('click', () => {
-
+buscarVuelos.addEventListener("click", () => {
   localStorage.removeItem("DatosAdultos");
   localStorage.removeItem("DatosNinos");
   localStorage.removeItem("DatosInfantes");
   localStorage.removeItem("DatosPago");
   localStorage.removeItem("VueloIda");
 
-
   // mostrarVuelosDeIda(ciudadOrigen.value, ciudadDestino.value, fechaIda.value)
   // mostrarVuelosDeRegreso(ciudadOrigen.value, ciudadDestino.value, fechaRegreso.value)
   if (RT == false) {
-    document.getElementById('vuelos-ida').style.display = 'block';
+    document.getElementById("vuelos-ida").style.display = "block";
     mostrarVuelosDeIda(ciudadOrigen.value, ciudadDestino.value, fechaIda.value);
   }
   if (RT == true) {
-    document.getElementById('vuelos-ida').style.display = 'block';
-    document.getElementById('vuelos-regreso').style.display = 'block';
+    document.getElementById("vuelos-ida").style.display = "block";
+    document.getElementById("vuelos-regreso").style.display = "block";
     mostrarVuelosDeIda(ciudadOrigen.value, ciudadDestino.value, fechaIda.value);
-    mostrarVuelosDeRegreso(ciudadOrigen.value, ciudadDestino.value, fechaRegreso.value);
+    mostrarVuelosDeRegreso(
+      ciudadOrigen.value,
+      ciudadDestino.value,
+      fechaRegreso.value
+    );
   }
 
   document.getElementById("boton").style.display = "flex";
@@ -249,9 +255,7 @@ buscarVuelos.addEventListener('click', () => {
   todoVuelos.addEventListener("click", (e) => {
     verDetalles(e);
   });
-
 });
-
 
 const verDetalles = (e) => {
   e.preventDefault();
@@ -261,7 +265,7 @@ const verDetalles = (e) => {
     // vuel.style.backgroundColor = "#8b66ceb3"
     const vuelosEscogidos = [];
 
-    let esteVuelo = vuelos.filter(vu => vu.id === codigoId);
+    let esteVuelo = vuelos.filter((vu) => vu.id === codigoId);
     localStorage.setItem("VueloIda", JSON.stringify(esteVuelo));
 
     const existeLocalStorage = localStorage.getItem("VueloIda");
@@ -269,42 +273,37 @@ const verDetalles = (e) => {
       localStorage.removeItem(existeLocalStorage);
       localStorage.setItem("VueloIda", JSON.stringify(esteVuelo));
     }
-    
-    let idVu = JSON.parse(localStorage.getItem("VueloIda"));
-    idVu.map(item => {
-      if(vuel.getAttribute('id') === item.id){
-        console.log(item.id)
-        document.getElementById(`${item.id}`).style.backgroundColor = 'red'
-      }else{
-        console.log('es-----')
-        document.getElementById(`${item.id}`).style.background = 'none'
-      }
-    })
-    
 
+    // idVu.map(item => {
+    //   if(vuel.getAttribute('id') === item.id){
+    //     console.log(item.id)
+    //     document.getElementById(`${item.id}`).style.backgroundColor = 'red'
+    //   }else{
+    //     console.log('es-----')
+    //     document.getElementById(`${item.id}`).style.background = 'none'
+    //   }
+    // })
   }
   e.stopPropagation();
 };
 
-document.getElementById("continuar").addEventListener("click", ()=>{
+document.getElementById("continuar").addEventListener("click", () => {
   diligenciarDatosPasajero(candidadAdultos, candidadNinos, candidadInfantes);
 
-  todoVuelos.style.display = "none"
-  document.getElementById("datos-pasajeros").style.display = "flex"
-
+  todoVuelos.style.display = "none";
+  document.getElementById("datos-pasajeros").style.display = "flex";
 });
 
-const diligenciarDatosPasajero =(adulto, nino, infante)=>{
-
+const diligenciarDatosPasajero = (adulto, nino, infante) => {
   const pasajeroAdulto = document.getElementById("pasajero-adulto");
   const pasajeroNino = document.getElementById("pasajero-nino");
   const pasajeroInfante = document.getElementById("pasajero-infante");
 
-  if(adulto > 0){
+  if (adulto > 0) {
     for (let index = 0; index < adulto; index++) {
       pasajeroAdulto.innerHTML += `
         <hr>
-        <p class="p-pasajero">Adulto ${index+1}</p>
+        <p class="p-pasajero">Adulto ${index + 1}</p>
         <form class="formulario-adulto">
             <div>
                 <input class="d-a" type="text" name="nombre" value="" placeholder="Nombres">
@@ -321,15 +320,15 @@ const diligenciarDatosPasajero =(adulto, nino, infante)=>{
                 <input class="d-a" type="text" name="correo" value="" placeholder="Correo">
             </div>  
         </form>
-      ` 
+      `;
     }
   }
 
-  if(nino > 0){
+  if (nino > 0) {
     for (let index = 0; index < nino; index++) {
       pasajeroNino.innerHTML += `
         <hr>
-        <p class="p-pasajero">Niño ${index+1}</p>
+        <p class="p-pasajero">Niño ${index + 1}</p>
         <form class="formulario-nino">
             <div>
                 <input class="d-n" type="text" name="nombre" value="" placeholder="Nombres">
@@ -346,15 +345,15 @@ const diligenciarDatosPasajero =(adulto, nino, infante)=>{
                 <input class="d-n" type="text" name="correo" value="" placeholder="Correo">
             </div>  
         </form>
-      ` 
+      `;
     }
   }
 
-  if(infante > 0){
+  if (infante > 0) {
     for (let index = 0; index < infante; index++) {
       pasajeroInfante.innerHTML += `
         <hr>
-        <p class="p-pasajero">Infante ${index+1}</p>
+        <p class="p-pasajero">Infante ${index + 1}</p>
         <form class="formulario-infante">
             <div>
                 <input class="d-i" type="text" name="nombre" value="" placeholder="Nombres">
@@ -371,60 +370,93 @@ const diligenciarDatosPasajero =(adulto, nino, infante)=>{
                 <input class="d-i" type="text" name="correo" value="" placeholder="Correo">
             </div>  
         </form>
-      ` 
+      `;
     }
   }
 };
 
-guardarDatosPasajeros.addEventListener("click", ()=>{
-  const formAdulto = document.querySelectorAll(".d-a")
-  let dataAdulto = []
+guardarDatosPasajeros.addEventListener("click", () => {
+  const formAdulto = document.querySelectorAll(".d-a");
+  let dataAdulto = [];
   for (const iterator of formAdulto) {
-    dataAdulto.push(iterator.value)
+    dataAdulto.push(iterator.value);
   }
   localStorage.setItem("DatosAdultos", JSON.stringify(dataAdulto));
 
-
-  const formNino = document.querySelectorAll(".d-n")
-  let dataNino = []
+  const formNino = document.querySelectorAll(".d-n");
+  let dataNino = [];
   for (const iterator of formNino) {
-    dataNino.push(iterator.value)
+    dataNino.push(iterator.value);
   }
   localStorage.setItem("DatosNinos", JSON.stringify(dataNino));
 
-
-  const formInfante = document.querySelectorAll(".d-i")
-  let dataInfante = []
+  const formInfante = document.querySelectorAll(".d-i");
+  let dataInfante = [];
   for (const iterator of formInfante) {
-    dataInfante.push(iterator.value)
+    dataInfante.push(iterator.value);
   }
   localStorage.setItem("DatosInfantes", JSON.stringify(dataInfante));
 
-  formaPagos.style.display = 'flex'
-  document.getElementById("datos-pasajeros").style.display = "none"
-})
+  formaPagos.style.display = "flex";
+  document.getElementById("datos-pasajeros").style.display = "none";
+});
 
-guardarDatosPago.addEventListener('click', ()=>{
-
-  const nombrePago = document.getElementById('pago-nombre')
-  const documentoPago = document.getElementById('pago-documento')
-  const emailPago = document.getElementById('pago-email')
-  const tarjetaPago = document.getElementById('pago-tarjeta')
+guardarDatosPago.addEventListener("click", () => {
+  const nombrePago = document.getElementById("pago-nombre");
+  const documentoPago = document.getElementById("pago-documento");
+  const emailPago = document.getElementById("pago-email");
+  const tarjetaPago = document.getElementById("pago-tarjeta");
 
   const datosPago = {
-    nombre: '',
-    documento: '',
-    email: '',
-    numTarjeta: ''
-  }
+    nombre: "",
+    documento: "",
+    email: "",
+    numTarjeta: "",
+  };
 
   datosPago.nombre = nombrePago.value;
   datosPago.documento = documentoPago.value;
   datosPago.email = emailPago.value;
   datosPago.numTarjeta = tarjetaPago.value;
 
-  localStorage.setItem("DatosPago", JSON.stringify(datosPago));
+  let pago = [datosPago]
 
-})
+  localStorage.setItem("DatosPago", JSON.stringify(pago));
+  mostrarDatosTiket();
+  const datosVuelos = document.getElementById("datos-tiket");
+  datosVuelos.style.display = 'flex'
+});
 
+const mostrarDatosTiket = () => {
+  const vuelo = JSON.parse(localStorage.getItem("VueloIda"));
+  const pago = JSON.parse(localStorage.getItem("DatosPago"));
+  const pasajeros = JSON.parse(localStorage.getItem("DatosAdultos"));
 
+  const tiketVuelos = document.getElementById("tiket-vuelo");
+  const tiketPasajero = document.getElementById("tiket-pasajero");
+  const tiketPago = document.getElementById("tiket-pago");
+
+  vuelo.map((item) => {
+    tiketVuelos.innerHTML += `
+      <p>Origen: ${item.origen}</p>
+      <p>Destino: ${item.destino}</p>
+      <p>Fecha: ${item.fecha}</p>
+      <p>Hora: ${item.horaSalida}</p>
+      <p>Valor: ${item.valor}</p>
+    `
+  });
+
+  pasajeros.map((item) => {
+    tiketPasajero.innerHTML += `
+      <p>${item}</p>
+    `
+  });
+
+  pago.map((item) => {
+    tiketPago.innerHTML += `
+      <p>Nombre: ${item.nombre}</p>
+      <p>Email: ${item.email}</p>
+      <p>Documento: ${item.documento}</p>
+    `
+  });
+};
